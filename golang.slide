@@ -1,0 +1,82 @@
+Golang
+IFF - Code Kata
+9 Apr 2019
+
+Vegard Løkken
+Itema
+
+* Om Go
+
+- Lagd av Google, go1 utgitt i 2012.
+# Mange tok i bruk språket tidligere før 1.0.
+- Enkelt språk i motsetning til C++/Java.
+# F.eks. ingen klasser eller generics.
+- God tooling.
+# Innebygd pakkehåndtering, testverktøy og bra standardbibliotek.
+- Kompabilitetsgaranti.
+# Alt som er skrevet fom. go1 skal fortsette å fungere på nyere versjoner så langt det lar seg gjøre.
+- Standardisert formatering.
+# gofmt formaterer kildekode etter en satt standard for å legge den diskusjonen død.
+
+.code hello.go
+
+* Egenskaper
+- Statisk typet språk.
+# Statisk og sterkt typet. Kan bruke interfaces og type assertions.
+- Kompileres til statisk linket native binary med bundlet runtime.
+# Resulterer gjerne i en enkel fil som kan kjøres uten forhåndsinstallert programvare på det OSet som var satt som mål.
+- Kjapp kompilering(!) og veldig god ytelse.
+# Native maskinkode, dog med en runtime som tilbyr mye god funksjonalitet til en liten pris i form av tap i ytelse sammenlignet med C.
+- Krysskompilering (win/macos/linux).
+# Samme kompilator kan kompilere til hvilket som helst mål.
+- Pointere / minnehåndtering.
+# Pointere/referanser kan opprettes med & og derefereres med *, men ingen pointer-aritmetikk som i C.
+# Garbage collected, ingen manuell minnehåndtering.
+- Funksjoner kan returnere flere verdier.
+# Vanlig med to returverdier; resultat og error hvor error sjekkes for nil.
+- Errors i stedet for exceptions.
+# Sjekking og videresending/håntering av errors. Man tvinges til å ta et eksplisitt valg.
+
+* Pakkehåndtering/avhengigheter
+- `go get ...`.
+- Pakker hentes gjerne med Git, ofte fra GitHub.
+# Dvs. at dependencies må være open source. Lastes ned og kompileres ved bruk.
+- Vendoring.
+# Bundle med kildekode for avhengigheter.
+- Nytt av go1.11 er go modules.
+# go.mod med liste over direkte og indirekte avhengigheter med versjonering.
+
+* Utviklingsmiljø
+- Kommandolinjeverktøy.
+# Kommandoer for bygging, testing, vetting (helsesjekk), henting av avhengigheter, installering, osv.
+- Editorstøtte og IDEer.
+- Debugging med delve.
+- Testing med `go test`.
+
+* Kodestruktur
+- Pakke-konsept med tilhørlighet til mappestruktur.
+# Filer i samme mappe må være del av samme pakke. main-pakken brukes for executables.
+- C-syntax med noen særheter.
+# Ingen semikolon og få paranteser.
+- Private/public bestemmes av casing i første bokstav.
+# Kun symboler med stor forbokstav blir eksportert ut fra pakken.
+- Konvensjoner i navngivning av filer, metoder, variabler.
+# Filnavn er lowercase i ett ord. Postfix adskilt med underscore brukes for å spesifisere testfiler eller platform-spesifikke filer.
+# Metodenavn er uten prefix (get/set/is/do) og brukes ofte sammen med pakkenavn så skal ikke ha pakkenavn i metodenavnet.
+# Variabelnavn er gjerne korte, avhengig av hvor langt det er mellom deklarasjon og bruk.
+
+* Interfaces
+- Implementeres implisitt ved at en type har implementert alle metoder.
+- interface{}
+# Tomt interface er noe alle typer implementerer.
+- Defineres gjerne av mottaker
+# Brukes gjerne litt motsatt i forhold til andre språk. I stedet for å lage et interface spesifikt for en implementasjon,
+# lager mottaker et interface for å si hva den vil motta.
+
+* Concurrency
+- Goroutines og channels for async/concurrency.
+# Ingen trådhåndtering. Runtime allokerer et passende antall tråder og fordeler goroutines på disse.
+# Goroutines kan sees på som lettvekts-tråder. De bruker lite minne og har liten overhead, så man har "unlimited" antall.
+- Kanaler brukes for å kommunisere på tvers av goroutines.
+# Kan skrives til og leses fra og er en trygg måte å dele informasjon.
+- Dele minne ved å kommunisere i stedet for å kommunisere ved å dele minne.
