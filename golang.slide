@@ -3,7 +3,6 @@ IFF - Code Kata
 9 Apr 2019
 
 Vegard Løkken
-Itema
 
 * Om Go
 
@@ -37,21 +36,33 @@ Itema
 - Errors i stedet for exceptions.
 # Sjekking og videresending/håntering av errors. Man tvinges til å ta et eksplisitt valg.
 
+.code errors.go
+
 * Pakkehåndtering/avhengigheter
 - `go get ...`.
 - Pakker hentes gjerne med Git, ofte fra GitHub.
 # Dvs. at dependencies må være open source. Lastes ned og kompileres ved bruk.
+# All kildekode ligger lokalt og kan inspiseres ved behov eller debugging.
 - Vendoring.
-# Bundle med kildekode for avhengigheter.
+# Bundle med kildekode for avhengigheter. Fortsatt i bruk i iBot fordi go modules er relativt nytt og ikke alle
+# har begynt å bruke det ennå. Go get brukte å hente rett fra master noe som kan være litt sketchy, men stort sett
+# følger pakkeutviklere samme tankegang som Go med å holde det bakoverkompatibelt og endre importpath ved breaking changes.
 - Nytt av go1.11 er go modules.
 # go.mod med liste over direkte og indirekte avhengigheter med versjonering.
+
+.code go.mod
 
 * Utviklingsmiljø
 - Kommandolinjeverktøy.
 # Kommandoer for bygging, testing, vetting (helsesjekk), henting av avhengigheter, installering, osv.
 - Editorstøtte og IDEer.
+# Plugins til de fleste populære editorer. Egen IDE fra JetBrains.
 - Debugging med delve.
+# Integrasjon med VS Code.
 - Testing med `go test`.
+# Coverage rapport med integrasjon i VS Code.
+
+.image debug.png 400 _
 
 * Kodestruktur
 - Pakke-konsept med tilhørlighet til mappestruktur.
@@ -65,6 +76,8 @@ Itema
 # Metodenavn er uten prefix (get/set/is/do) og brukes ofte sammen med pakkenavn så skal ikke ha pakkenavn i metodenavnet.
 # Variabelnavn er gjerne korte, avhengig av hvor langt det er mellom deklarasjon og bruk.
 
+.code fizzbuzz.go
+
 * Interfaces
 - Implementeres implisitt ved at en type har implementert alle metoder.
 - interface{}
@@ -73,6 +86,8 @@ Itema
 # Brukes gjerne litt motsatt i forhold til andre språk. I stedet for å lage et interface spesifikt for en implementasjon,
 # lager mottaker et interface for å si hva den vil motta.
 
+.code interfaces.go
+
 * Concurrency
 - Goroutines og channels for async/concurrency.
 # Ingen trådhåndtering. Runtime allokerer et passende antall tråder og fordeler goroutines på disse.
@@ -80,3 +95,11 @@ Itema
 - Kanaler brukes for å kommunisere på tvers av goroutines.
 # Kan skrives til og leses fra og er en trygg måte å dele informasjon.
 - Dele minne ved å kommunisere i stedet for å kommunisere ved å dele minne.
+
+* Synkron/blokkerende nedlastning
+
+.code concurrency.go
+
+* Asynkron nedlastning med loader
+
+.code concurrency2.go
