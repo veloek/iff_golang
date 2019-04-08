@@ -102,4 +102,8 @@ Vegard Løkken
 
 * Asynkron nedlastning med loader
 
-.code concurrency2.go
+.code concurrency2_slide.go
+
+* Oppgave - streaming
+
+.code assignment_slide.go
